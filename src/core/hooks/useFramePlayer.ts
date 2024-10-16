@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 
 export function useFramePlayer(frames: string[], fps: number) {
-  const [currentFrame, setCurrentFrame] = useState(0); // 'the-bird' será o estado inicial
+  const [currentFrame, setCurrentFrame] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
-  const totalFrames = frames.length - 1; // Considera frames de 'first-bird' a 'fifth-bird'
-  const frameDuration = 1000 / fps; // Cada frame terá duração de 5 segundos
+  const totalFrames = frames.length - 1; 
+  const frameDuration = 1000 / fps; 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const play = () => {
     if (isComplete) {
-      setCurrentFrame(0); // Volta para 'the-bird'
+      setCurrentFrame(0); 
       setProgress(0);
       setElapsedTime(0);
       setIsComplete(false);
@@ -28,21 +28,21 @@ export function useFramePlayer(frames: string[], fps: number) {
       intervalRef.current = setInterval(() => {
         setCurrentFrame((prev) => {
           if (prev === 0) {
-            setElapsedTime(5); // Exibe 'the-bird' por 5 segundos (inicial)
-            setProgress(0); // Progresso não será alterado enquanto 'the-bird' é exibido
-            return 1; // Após 5 segundos, vai para o 'first-bird'
+            setElapsedTime(5); 
+            setProgress(0); 
+            return 1; 
           }
 
           const nextFrame = prev + 1;
-          const nextElapsedTime = nextFrame * 5; // Cada frame dura 5 segundos
+          const nextElapsedTime = nextFrame * 5;
 
-          setProgress(((nextFrame - 1) / (totalFrames - 1)) * 100); // Progresso a partir do 'first-bird'
+          setProgress(((nextFrame - 1) / (totalFrames - 1)) * 100); 
           setElapsedTime(nextElapsedTime);
 
           if (nextFrame >= totalFrames) {
             setIsComplete(true);
             pause();
-            return nextFrame; // Mantém no último frame 'fifth-bird'
+            return nextFrame; 
           }
 
           return nextFrame;

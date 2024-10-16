@@ -27,8 +27,7 @@ export const Player: React.FC<FramePlayerProps> = ({ frames, fps }) => {
     setCurrentFrame(frameIndex);
     setProgress(value);
 
-    // Atualiza o tempo com base no frame selecionado
-    const newElapsedTime = frameIndex * 5; // Cada frame depois de 'the-bird' dura 5 segundos
+    const newElapsedTime = frameIndex * 5; 
     setElapsedTime(newElapsedTime);
   };
 
